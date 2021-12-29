@@ -15,7 +15,7 @@ import net.mamoe.mirai.utils.info
 object RecallView : KotlinPlugin(
     JvmPluginDescription(
         id = "io.github.kamishirokalina.recallview",
-        name = "撤回查看",
+        name = "Recall View",
         version = "1.0",
     ) {
         author("Kamishiro Kalina")
