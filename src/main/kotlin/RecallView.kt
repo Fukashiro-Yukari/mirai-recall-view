@@ -2,11 +2,11 @@ package io.github.kamishirokalina
 
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
+import net.mamoe.mirai.contact.isAdministrator
 import net.mamoe.mirai.contact.nameCardOrNick
 import net.mamoe.mirai.event.GlobalEventChannel
 import net.mamoe.mirai.event.events.GroupMessageEvent
 import net.mamoe.mirai.event.events.MessageRecallEvent
-import net.mamoe.mirai.message.action.Nudge.Companion.sendNudge
 import net.mamoe.mirai.message.data.MessageChain
 import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.message.data.source
@@ -111,8 +111,12 @@ object RecallView : KotlinPlugin(
                 if (!recallMsgs.containsKey(group.id))
                     recallMsgs[group.id] = mutableListOf()
 
-                recallMsgs[group.id]!!.add(msg)
-                group.sendMessage("输入 /last 可以查看撤回内容")
+                val isAdmin = operator!!.isAdministrator()
+
+                if (!isAdmin){
+                    recallMsgs[group.id]!!.add(msg)
+                    group.sendMessage("输入 /last 可以查看撤回内容")
+                }
             }
         }
     }
